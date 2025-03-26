@@ -46,7 +46,7 @@ def filtrar_por_dni(personas):
         print("Persona no encontrada con ese DNI.")
 
 # * Incluyo 2 métodos para el menú, un bloque if y un match case (un método que me recomendó un compañero, similar a switch en js)
-# ! Comentar el bloque que no se utilice para el funcionamiento del código seleccionandolo y luego Shift + """
+# ! Comentar el bloque que no se utilice para el funcionamiento del código, seleccionandolo y luego Shift + """
 
 def menu():
     personas = []  # Lista para almacenar las personas ingresadas
@@ -82,7 +82,7 @@ menu()
 
 # * Bloque opcional
 
-def menu():
+"""def menu():
     personas = []  # Lista para almacenar las personas ingresadas
     while True:
         print("\nMenú de opciones:")
@@ -113,4 +113,4 @@ def menu():
                 print("Opción no válida, por favor seleccione una opción del 1 al 4.")
 
 # Ejecutar el menú
-menu()    
+menu()"""    
