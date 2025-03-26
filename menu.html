@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Personas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        .button-container {
+            margin-bottom: 20px;
+        }
+        button {
+            padding: 10px 15px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        #output {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Gestión de Personas</h1>
+    
+    <div class="button-container">
+        <button id="ingresarBtn">Ingresar nueva persona</button>
+        <button id="mostrarBtn">Mostrar todos los datos</button>
+        <button id="filtrarBtn">Filtrar por DNI</button>
+        <button id="salirBtn">Salir</button>
+    </div>
+
+    <div id="output"></div>
+
+    <script>
+        let personas = [];
+
+        // Función para ingresar una nueva persona
+        function ingresarPersona() {
+            let nombre = prompt("Ingrese el nombre de la persona:");
+            let apellido = prompt("Ingrese el apellido de la persona:");
+            let dni = prompt("Ingrese el DNI de la persona:");
+            let telefonos = prompt("Ingrese los números de teléfono separados por comas:").split(',');
+            let hijos = prompt("Ingrese los nombres de los hijos separados por comas:").split(',');
+
+            // Limpiar los espacios extra
+            telefonos = telefonos.map(tel => tel.trim());
+            hijos = hijos.map(hijo => hijo.trim());
+
+            // Crear la persona y agregarla al array
+            personas.push([nombre, apellido, dni, telefonos, hijos]);
+
+            mostrarMensaje("Persona ingresada correctamente.");
+        }
+
+        // Función para mostrar todos los datos
+        function mostrarDatos() {
+            if (personas.length === 0) {
+                mostrarMensaje("No hay datos disponibles.");
+                return;
+            }
+
+            let salida = '';
+            personas.forEach(persona => {
+                let [nombre, apellido, dni, telefonos, hijos] = persona;
+                salida += `<p><strong>Nombre:</strong> ${nombre} ${apellido}</p>
+                           <p><strong>DNI:</strong> ${dni}</p>
+                           <p><strong>Teléfonos:</strong> ${telefonos.join(', ')} (Cantidad: ${telefonos.length})</p>
+                           <p><strong>Hijos:</strong> ${hijos.join(', ')} (Cantidad: ${hijos.length})</p>
+                           <hr>`;
+            });
+            document.getElementById("output").innerHTML = salida;
+        }
+
+        // Función para filtrar por DNI
+        function filtrarPorDNI() {
+            let dniBuscar = prompt("Ingrese el DNI de la persona a buscar:");
+            let personaEncontrada = personas.find(persona => persona[2] === dniBuscar);
+
+            if (personaEncontrada) {
+                let [nombre, apellido, dni, telefonos, hijos] = personaEncontrada;
+                mostrarMensaje(`<p><strong>Datos de la persona con DNI ${dni}:</strong></p>
+                                <p><strong>Nombre:</strong> ${nombre} ${apellido}</p>
+                                <p><strong>DNI:</strong> ${dni}</p>
+                                <p><strong>Teléfonos:</strong> ${telefonos.join(', ')} (Cantidad: ${telefonos.length})</p>
+                                <p><strong>Hijos:</strong> ${hijos.join(', ')} (Cantidad: ${hijos.length})</p>`);
+            } else {
+                mostrarMensaje("Persona no encontrada con ese DNI.");
+            }
+        }
+
+        // Función para mostrar un mensaje en el div de salida
+        function mostrarMensaje(mensaje) {
+            document.getElementById("output").innerHTML = mensaje;
+        }
+
+        // Configuración de los botones
+        document.getElementById("ingresarBtn").addEventListener("click", ingresarPersona);
+        document.getElementById("mostrarBtn").addEventListener("click", mostrarDatos);
+        document.getElementById("filtrarBtn").addEventListener("click", filtrarPorDNI);
+        document.getElementById("salirBtn").addEventListener("click", () => {
+            mostrarMensaje("Saliendo del programa.");
+        });
+    </script>
+</body>
+</html>
